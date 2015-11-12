@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11457910}
   m_Layer: 0
   m_Name: Spawners
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,7 @@ MonoBehaviour:
   spawnTimer: .100000001
   colHeight: 0
   MaxHeight: 8
+  colArray: 0000000000000000000000000000000000000000000000000000000000000000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -61,6 +62,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: colHeight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

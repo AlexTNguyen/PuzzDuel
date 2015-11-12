@@ -5,25 +5,67 @@ var spawnTimer: float = 0.25;
 var colHeight : int = 1;
 var MaxHeight : int = 8;
 
+
+
 function Start () {
-    
+
 }
 
 function Update () {
+    var col : int = 0;
     if(spawnTimer > 0){
         spawnTimer -= Time.deltaTime;
     }
-    if(spawnTimer <= 0 && colHeight < MaxHeight){
-        spawnTiles();
-        spawnTimer = 0.25;
-        colHeight++;
+
+    if(spawnTimer <= 0){ 
+        var colArray : int[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).colArray;
+        if(transform.position.x == -2){
+            colHeight = colArray[0];
+            col = 0;
+        }
+        else if(transform.position.x == -1.75){
+            colHeight = colArray[1];
+            col = 1;
+        }
+        else if(transform.position.x == -1.5){
+            colHeight = colArray[2];
+            col = 2;
+        }
+        else if (transform.position.x == -1.25){
+            colHeight = colArray[3];
+            col = 3;            
+        }
+        else if (transform.position.x == -1){
+            colHeight = colArray[4];
+            col = 4;            
+        }
+        else if (transform.position.x == -.75){
+            colHeight = colArray[5];
+            col = 5;            
+        }
+        else if (transform.position.x == -.5){
+            colHeight = colArray[6];
+            col = 6;            
+        }
+        else{
+            colHeight = colArray[7];
+            col = 7;            
+        }
+        if(colHeight < MaxHeight){
+            spawnTiles(colHeight, col);
+            spawnTimer = 0.25;
+            colArray[col]++;
+        }
     }
 }
 
-function spawnTiles(){
-    var newTile : GameObject = Instantiate(TilePrefab, transform.position, transform.rotation); 
+function spawnTiles(colHeight, col){
+ 
+    var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
+    TileArray[colHeight, col] = Instantiate(TilePrefab, transform.position, transform.rotation);
+    Debug.Log(TileArray[colHeight, col]);
+    var newTile : GameObject = TileArray[colHeight, col];
     var rand : float = Random.Range(0, 5);
-    Debug.Log(rand);
     if( rand < 1){
         newTile.GetComponent(Renderer).material.color = Color.red;
     }
