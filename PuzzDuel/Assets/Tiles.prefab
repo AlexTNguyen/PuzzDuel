@@ -9,9 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 489314}
   - 212: {fileID: 21263580}
-  - 50: {fileID: 5019514}
-  - 61: {fileID: 6177252}
   - 114: {fileID: 11484472}
+  - 61: {fileID: 6159520}
   m_Layer: 0
   m_Name: Tiles
   m_TagString: Tile
@@ -31,23 +30,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5019514
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153390}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_IsKinematic: 0
-  m_Interpolate: 2
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 1
---- !u!61 &6177252
+--- !u!61 &6159520
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -71,6 +54,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8764857132de0844bcebeca6180e1a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TilePrefab: {fileID: 153390}
+  x: 0
+  y: 0
 --- !u!212 &21263580
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -96,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .760784388, g: .760784388, b: .760784388, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -130,6 +116,30 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TilePrefab
+      value: 
+      objectReference: {fileID: 153390}
+    - target: {fileID: 0}
+      propertyPath: m_Color.r
+      value: .760784388
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.g
+      value: .760784388
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: .760784388
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

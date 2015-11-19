@@ -1,10 +1,10 @@
 ﻿#pragma strict
 
 var TilePrefab : GameObject;
-var spawnTimer: float = 0.25;
+var spawnTime: float = 0.25;
 var colHeight : int = 1;
 var MaxHeight : int = 8;
-
+var spawnTimer : float = spawnTime;
 
 
 function Start () {
@@ -53,19 +53,20 @@ function Update () {
         }
         if(colHeight < MaxHeight){
             spawnTiles(colHeight, col);
-            spawnTimer = 0.25;
+            spawnTimer = spawnTime;
             colArray[col]++;
         }
     }
 }
 
-function spawnTiles(colHeight, col){
+function spawnTiles(colHeight : int, col : int){
  
+    yield WaitForSeconds (0.25);
     var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
-    TileArray[colHeight, col] = Instantiate(TilePrefab, transform.position, transform.rotation);
-    Debug.Log(TileArray[colHeight, col]);
+    TileArray[colHeight, col] = Instantiate(TilePrefab, Vector3(-2 + (col * (0.25)), (-0.9 + (colHeight * (0.25))), 0) , transform.rotation);
     var newTile : GameObject = TileArray[colHeight, col];
     var rand : float = Random.Range(0, 5);
+
     if( rand < 1){
         newTile.GetComponent(Renderer).material.color = Color.red;
     }
