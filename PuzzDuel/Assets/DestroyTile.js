@@ -1,17 +1,67 @@
 ﻿#pragma strict
 
 var TilePrefab : GameObject;
-var x : float;
-var y : float;
+var x : float = -1;
+var y : float = -1;
+var chainCreated : boolean = false; 
+var chainColor : Color; 
+
 
 function Start () {
 
 }
 
 function Update () {
-
+	var matchedArray : GameObject[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).matchedArray;
+	var arrayScript : CreateArray = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray);
+	var spawnScript : SpawnTiles = GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles);
+	var pos: Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    var hit: RaycastHit2D = Physics2D.Raycast(pos, Vector2.zero);
+	if (hit.transform != null && hit.transform.CompareTag("Tile"))
+	{
+	     if(hit.transform.GetComponent(Renderer).material.color.a != 0.5) {
+		 if(arrayScript.numMatched == 0) {
+		 	chainColor = hit.transform.GetComponent(Renderer).material.color;
+		 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
+		 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
+		 	arrayScript.numMatched += 1;
+		 }
+		 else {
+		 	Debug.Log(chainColor);
+		 	var selectedColor = hit.transform.GetComponent(Renderer).material.color;
+		 	Debug.Log(selectedColor);
+		 	if(selectedColor.r == chainColor.r && selectedColor.g == chainColor.g && selectedColor.b == chainColor.b){
+		 		Debug.Log("2");
+		 	 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
+		 	 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
+		     	arrayScript.numMatched += 1;
+		 	}
+		 	else {
+		 		Debug.Log("3");
+		 		if(arrayScript.numMatched <= 2){ 
+					for(var j = 0; j < arrayScript.numMatched; j++){
+						matchedArray[j].transform.GetComponent(Renderer).material.color.a = 1;
+					}
+				}
+		 		else if(arrayScript.numMatched >= 3) 
+		 		{
+				 	for(var i = 0; i < arrayScript.numMatched; i++){
+			    		var toSpawnx : float = matchedArray[i].transform.position.x;
+			    		var toSpawny : float = matchedArray[i].transform.position.y;
+			    		spawnScript.spawnTiles((toSpawny + 0.9)/0.25, (toSpawnx + 2)/0.25);
+			    		Destroy(matchedArray[i]);
+			    
+					}
+				}
+				arrayScript.numMatched = 0;
+				chainColor = selectedColor;
+			}
+		}
+		}
+	}
 }
 
+/*
 function OnMouseDown(){
     x = gameObject.transform.position.x;
     y = gameObject.transform.position.y;
@@ -38,10 +88,11 @@ function OnMouseDown(){
         arrayScript.numMatched = 0;
     }
 }
+*/
 
 function SpawnNew(){
-    Debug.Log(x);
-    Debug.Log(y);
+//    Debug.Log(x);
+//    Debug.Log(y);
     var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
     var newTile : GameObject = Instantiate(TilePrefab, Vector3(x, y, 0), Quaternion.Euler(0, 0, 0));
     TileArray[(x + 2)/0.25, ((y + 1.15)/0.25) - 1] = newTile;
