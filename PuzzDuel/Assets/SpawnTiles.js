@@ -6,7 +6,6 @@ var colHeight : int = 1;
 var MaxHeight : int = 8;
 var spawnTimer : float = spawnTime;
 
-
 function Start () {
 
 }
@@ -61,7 +60,7 @@ function Update () {
 
 function spawnTiles(colHeight : int, col : int){
  
-    yield WaitForSeconds (0.10);
+    yield WaitForSeconds (0.20);
     var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
     TileArray[colHeight, col] = Instantiate(TilePrefab, Vector3(-2 + (col * (0.25)), (-0.9 + (colHeight * (0.25))), 0) , transform.rotation);
     var newTile : GameObject = TileArray[colHeight, col];
