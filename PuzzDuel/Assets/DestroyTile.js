@@ -5,7 +5,8 @@ var x : float = -1;
 var y : float = -1;
 var chainCreated : boolean = false; 
 var chainColor : Color; 
-
+var lastTileX: float = 0;
+var lastTileY: float = 0;
 
 function Start () {
 
@@ -25,17 +26,32 @@ function Update () {
 			 	chainColor = hit.transform.GetComponent(Renderer).material.color;
 			 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
 			 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
+			 	//hit.transform.localScale += new Vector3(0.2F, 0.2F, 0);
+			 	lastTileX = hit.transform.position.x;
+			 	lastTileY = hit.transform.position.y;
 			 	arrayScript.numMatched += 1;
 			 }
 			 else {
-			 	Debug.Log(chainColor);
-			 	var selectedColor = hit.transform.GetComponent(Renderer).material.color;
-			 	Debug.Log(selectedColor);
-			 	if(selectedColor.r == chainColor.r && selectedColor.g == chainColor.g && selectedColor.b == chainColor.b){
-			 		Debug.Log("2");
-			 	 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
-			 	 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
-			     	arrayScript.numMatched += 1;
+			 	// Check if it next tile is to the left
+			 	if((hit.transform.position.x == lastTileX - 0.25 && hit.transform.position.y == lastTileY) ||
+			 		//To the right
+			 	   (hit.transform.position.x == lastTileX + 0.25 && hit.transform.position.y == lastTileY) || 
+			 	   //Above
+			 	   (hit.transform.position.x == lastTileX && hit.transform.position.y == lastTileY + 0.25) || 
+			 	   //Below
+			 	   (hit.transform.position.x == lastTileX && hit.transform.position.y == lastTileY - 0.25)) { 
+				 	Debug.Log(chainColor);
+				 	var selectedColor = hit.transform.GetComponent(Renderer).material.color;
+				 	Debug.Log(selectedColor);
+				 	if(selectedColor.r == chainColor.r && selectedColor.g == chainColor.g && selectedColor.b == chainColor.b){
+				 		Debug.Log("2");
+				 		//matchedArray[arrayScript.numMatched-1].transform.localScale += new Vector3(-0.2F, -0.2F, 0);
+				 	 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
+				 	 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
+				 	 	lastTileX = hit.transform.position.x;
+			 			lastTileY = hit.transform.position.y;
+				     	arrayScript.numMatched += 1;
+			     	}
 			 	}
 			}
 		}
