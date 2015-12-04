@@ -7,9 +7,30 @@ var chainCreated : boolean = false;
 var chainColor : Color; 
 var lastTileX: float = 0;
 var lastTileY: float = 0;
+var healthBar: GameObject;
+var barPos: float; 
+var maxValue: float; 
+var minValue: float;
+var currentHP: int;
+var maxHP: int = 100;
+var minHP: int = 0; 
+var barWidth: float; 
+var barY: float;
+
+var canvas: GameObject;
+var hpText: GameObject;
 
 function Start () {
-
+	hpText = GameObject.FindWithTag("Text");
+	canvas = GameObject.FindWithTag("Canvas");
+	healthBar = GameObject.FindWithTag("HP"); 
+	barWidth = healthBar.GetComponent(RectTransform).rect.width * canvas.transform.localScale.x;
+		maxValue = healthBar.transform.position.x;
+		minValue = healthBar.transform.position.x - barWidth;
+		barY = healthBar.transform.position.y;
+	Debug.Log(maxValue);
+	Debug.Log(minValue);
+	currentHP = maxHP; 
 }
 
 function Update () {
@@ -44,7 +65,6 @@ function Update () {
 				 	var selectedColor = hit.transform.GetComponent(Renderer).material.color;
 				 	Debug.Log(selectedColor);
 				 	if(selectedColor.r == chainColor.r && selectedColor.g == chainColor.g && selectedColor.b == chainColor.b){
-				 		Debug.Log("2");
 				 		//matchedArray[arrayScript.numMatched-1].transform.localScale += new Vector3(-0.2F, -0.2F, 0);
 				 	 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
 				 	 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
@@ -65,6 +85,15 @@ function Update () {
 					}
 			 		else if(arrayScript.numMatched >= 3) 
 			 		{
+			 			currentHP -= arrayScript.numMatched; 
+			 			if (arrayScript.numMatched >= 5)
+			 				currentHP += 2*arrayScript.numMatched;
+			 			if(currentHP <= 0)
+			 				currentHP = 0;
+			 			if(currentHP >= 100)
+			 				currentHP = 100;
+			 			HandleHealth();
+			 			Debug.Log(healthBar.transform.position.x);
 					 	for(var i = 0; i < arrayScript.numMatched; i++){
 				    		var toSpawnx : float = matchedArray[i].transform.position.x;
 				    		var toSpawny : float = matchedArray[i].transform.position.y;
@@ -78,34 +107,16 @@ function Update () {
 	}
 }
 
-/*
-function OnMouseDown(){
-    x = gameObject.transform.position.x;
-    y = gameObject.transform.position.y;
-    var matchedArray : GameObject[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).matchedArray;
-    var arrayScript : CreateArray = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray);
-    var spawnScript : SpawnTiles =GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles);
-    if(attached(((y + 0.9)/0.25), (x + 2)/0.25) || (arrayScript.numMatched == 0))
-    {
-        Debug.Log(arrayScript.numMatched);
-        matchedArray[arrayScript.numMatched] = gameObject;
-        gameObject.GetComponent(Renderer).material.color.a = 0.5;
-        arrayScript.numMatched += 1;
-        Debug.Log(arrayScript.numMatched);
-    }
-    else{
-        Debug.Log("Destroying");
-        for(var i = 0; i < arrayScript.numMatched; i++){
-            var toSpawnx : float = matchedArray[i].transform.position.x;
-            var toSpawny : float = matchedArray[i].transform.position.y;
-            spawnScript.spawnTiles((toSpawny + 0.9)/0.25, (toSpawnx + 2)/0.25);
-            Destroy(matchedArray[i]);
-            
-        }
-        arrayScript.numMatched = 0;
-    }
+function HandleHealth() {
+	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
+	//hpText.GetComponent.<TextMesh>().text = "HP: " + currentHP;
+	Debug.Log("newXPosition " + newXPosition);
+	healthBar.transform.position = new Vector3(newXPosition, barY);
 }
-*/
+
+function ConvertToX(x: float, inMin: float, inMax: float, outMin: float, outMax: float) {
+	return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin; 
+}
 
 function SpawnNew(){
 //    Debug.Log(x);
