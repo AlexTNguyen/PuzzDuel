@@ -21,7 +21,7 @@ var canvas: GameObject;
 var hpText: GameObject;
 
 function Start () {
-	hpText = GameObject.FindWithTag("Text");
+	//hpText = GameObject.FindWithTag("Text");
 	canvas = GameObject.FindWithTag("Canvas");
 	healthBar = GameObject.FindWithTag("HP"); 
 	barWidth = healthBar.GetComponent(RectTransform).rect.width * canvas.transform.localScale.x;
