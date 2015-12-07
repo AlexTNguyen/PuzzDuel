@@ -19,6 +19,13 @@ var barY: float;
 
 var canvas: GameObject;
 var hpText: GameObject;
+/*public class Networking extends Photon.PunBehaviour{
+    @PunRPC
+    function ChangeHP(newx : float){
+        healthBar.transform.position = new Vector3(newx, barY);
+    }
+}*/
+var photonView : PhotonView;
 
 function Start () {
 	//hpText = GameObject.FindWithTag("Text");
@@ -85,14 +92,15 @@ function Update () {
 					}
 			 		else if(arrayScript.numMatched >= 3) 
 			 		{
-			 			currentHP -= arrayScript.numMatched; 
+			 			//currentHP -= arrayScript.numMatched; 
 			 			if (arrayScript.numMatched >= 5)
 			 				currentHP += 2*arrayScript.numMatched;
 			 			if(currentHP <= 0)
 			 				currentHP = 0;
 			 			if(currentHP >= 100)
 			 				currentHP = 100;
-			 			HandleHealth();
+			 		    HandleHealth();
+			 		    DoDamage(arrayScript.numMatched);
 			 			Debug.Log(healthBar.transform.position.x);
 					 	for(var i = 0; i < arrayScript.numMatched; i++){
 				    		var toSpawnx : float = matchedArray[i].transform.position.x;
@@ -106,13 +114,24 @@ function Update () {
 					//chainColor = selectedColor;
 	}
 }
-
 function HandleHealth() {
 	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
 	//hpText.GetComponent.<TextMesh>().text = "HP: " + currentHP;
 	Debug.Log("newXPosition " + newXPosition);
 	healthBar.transform.position = new Vector3(newXPosition, barY);
 }
+function DoDamage(damage : int){
+    photonView = PhotonView.Get(this);
+    photonView.viewID = 1;
+    photonView.RPC("ChangeHP", PhotonTargets.Others, damage);
+}
+@PunRPC
+function ChangeHP(damage : int){
+    currentHP -= damage;
+    var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
+    healthBar.transform.position = new Vector3(newXPosition, barY);
+}
+
 
 function ConvertToX(x: float, inMin: float, inMax: float, outMin: float, outMax: float) {
 	return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin; 
