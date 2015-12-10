@@ -38,6 +38,8 @@ function Start () {
 	Debug.Log(maxValue);
 	Debug.Log(minValue);
 	currentHP = maxHP; 
+	photonView = PhotonView.Get(this);
+	//photonView.viewID = 1;
 }
 
 function Update () {
@@ -99,7 +101,7 @@ function Update () {
 			 				currentHP = 0;
 			 			if(currentHP >= 100)
 			 				currentHP = 100;
-			 		    HandleHealth();
+			 		    //HandleHealth();
 			 		    DoDamage(arrayScript.numMatched);
 			 			Debug.Log(healthBar.transform.position.x);
 					 	for(var i = 0; i < arrayScript.numMatched; i++){
@@ -121,12 +123,12 @@ function HandleHealth() {
 	healthBar.transform.position = new Vector3(newXPosition, barY);
 }
 function DoDamage(damage : int){
-    photonView = PhotonView.Get(this);
-    photonView.viewID = 1;
+    //if(photonView.viewID < 1) photonView.viewID = PhotonNetwork.AllocateViewID();
     photonView.RPC("ChangeHP", PhotonTargets.Others, damage);
 }
 @PunRPC
 function ChangeHP(damage : int){
+    Debug.Log(currentHP);
     currentHP -= damage;
     var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
     healthBar.transform.position = new Vector3(newXPosition, barY);
