@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa584fbee541324448dd18d8409c7a41
+guid: 9fee699423a010b4cabf3a75fde17d12
 labels:
 - ExitGames
 - PUN
@@ -10,3 +10,6 @@ MonoImporter:
   defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

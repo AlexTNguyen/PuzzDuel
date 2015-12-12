@@ -8,19 +8,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Script: {fileID: 11500000, guid: 87cac7e40918e064f96540624b948e30, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   HostType: 1
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
-  AppID: 5c72fcd4-acef-4064-8e9f-1b1796a1694e
+  AppID: 8c57ff00-b312-4221-bab3-e8d23129a249
   PreferredRegion: 0
   EnabledRegions: -1
   JoinLobby: 1
   EnableLobbyStatistics: 0
   RpcList:
+  - ChangeHP
   - Chat
   - ColorRpc
   - DestroyRpc
@@ -35,6 +36,5 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupTimes
   - TaggedPlayer
-  - ChangeHP
-  - HandleHealth
+  - updateEnemyBar
   DisableAutoOpenWizard: 1

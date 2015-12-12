@@ -10,7 +10,7 @@ function Start () {
 function Update () {
 	var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
 	var maxHeight : int = GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles).MaxHeight; 
-	if(freeze == true && Time.realtimeSinceStartup >= startFreeze + 2) { 
+	if(freeze == true && Time.time - startFreeze >= 1.5) { 
 		for(var m = 0; m < maxHeight; m++) {
 			for(var n = 0; n < maxHeight; n++){
 				TileArray[m,n].GetComponent(Renderer).material.color.a = 1;
@@ -23,9 +23,9 @@ function Update () {
 function OnMouseOver() {
 	var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
 	var maxHeight : int = GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles).MaxHeight; 
-	startFreeze = Time.realtimeSinceStartup;
+	startFreeze = Time.time;
+	if(Input.GetMouseButtonDown(0) && freeze == false){
 	freeze = true; 
-	if(Input.GetMouseButtonDown(0)){
 	Debug.Log("Refresh!");
 	for(var i = 0; i < maxHeight; i++) {
 		for(var j = 0; j < maxHeight; j++){

@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - Canvas
   - HP
+  - enemyHP
   layers:
   - Default
   - TransparentFX

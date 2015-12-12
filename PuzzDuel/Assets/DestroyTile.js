@@ -8,7 +8,6 @@ var chainColor : Color;
 var lastTileX: float = 0;
 var lastTileY: float = 0;
 var healthBar: GameObject;
-var barPos: float; 
 var maxValue: float; 
 var minValue: float;
 var currentHP: int;
@@ -16,7 +15,9 @@ var maxHP: int = 100;
 var minHP: int = 0; 
 var barWidth: float; 
 var barY: float;
-
+var enemyY: float;
+var enemyHP: GameObject;
+var enemyCurrent: int; 
 var canvas: GameObject;
 var hpText: GameObject;
 /*public class Networking extends Photon.PunBehaviour{
@@ -31,18 +32,25 @@ function Start () {
 	//hpText = GameObject.FindWithTag("Text");
 	canvas = GameObject.FindWithTag("Canvas");
 	healthBar = GameObject.FindWithTag("HP"); 
+	enemyHP = GameObject.FindWithTag("enemyHP");
 	barWidth = healthBar.GetComponent(RectTransform).rect.width * canvas.transform.localScale.x;
 		maxValue = healthBar.transform.position.x;
 		minValue = healthBar.transform.position.x - barWidth;
 		barY = healthBar.transform.position.y;
+		enemyY = enemyHP.transform.position.y; 
 	Debug.Log(maxValue);
 	Debug.Log(minValue);
 	currentHP = maxHP; 
+	enemyCurrent = maxHP;
 	photonView = PhotonView.Get(this);
 	//photonView.viewID = 1;
 }
 
 function Update () {
+	if (enemyCurrent <= 0)
+		Application.LoadLevel(3);
+	if (currentHP <= 0)
+		Application.LoadLevel(2); 
 	var matchedArray : GameObject[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).matchedArray;
 	var arrayScript : CreateArray = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray);
 	var spawnScript : SpawnTiles = GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles);
@@ -51,7 +59,7 @@ function Update () {
     var hit: RaycastHit2D = Physics2D.Raycast(pos, Vector2.zero);
 	if (hit.transform != null && hit.transform.CompareTag("Tile"))
 	{
-	     if(hit.transform.GetComponent(Renderer).material.color.a != 0.5) {
+	     if(hit.transform.GetComponent(Renderer).material.color.a > 0.5) {
 			 if(arrayScript.numMatched == 0) {
 			 	chainColor = hit.transform.GetComponent(Renderer).material.color;
 			 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
@@ -95,36 +103,90 @@ function Update () {
 			 		else if(arrayScript.numMatched >= 3) 
 			 		{
 			 			//currentHP -= arrayScript.numMatched; 
-			 			if (arrayScript.numMatched >= 5)
-			 				currentHP += 2*arrayScript.numMatched;
-			 			if(currentHP <= 0)
-			 				currentHP = 0;
-			 			if(currentHP >= 100)
-			 				currentHP = 100;
+			 			//if (arrayScript.numMatched >= 5)
+			 			//	currentHP += 2*arrayScript.numMatched;
 			 		    //HandleHealth();
 			 		    DoDamage(arrayScript.numMatched);
-			 			Debug.Log(healthBar.transform.position.x);
-					 	for(var i = 0; i < arrayScript.numMatched; i++){
-				    		var toSpawnx : float = matchedArray[i].transform.position.x;
-				    		var toSpawny : float = matchedArray[i].transform.position.y;
-				    		spawnScript.spawnTiles((toSpawny + 0.9)/0.25, (toSpawnx + 2)/0.25);
-				    		Destroy(matchedArray[i]);
-				    
-						}
+			 			
+			 			ChangeColor(arrayScript.numMatched); 
+					 	//for(var i = 0; i < arrayScript.numMatched; i++){
+				    	//	var toSpawnx : float = matchedArray[i].transform.position.x;
+				    	//	var toSpawny : float = matchedArray[i].transform.position.y; 
+					    //		Destroy(matchedArray[i]);
+					    //		Debug.Log("SPAWNING" + i);
+					    //		Debug.Log("After" + i + ": x = " + ((toSpawny + 0.9)/0.25) + " y = " + ((toSpawnx + 2)/0.25));
+					    //	}
+						//}
 					}
+					if(arrayScript.numMatched >= 5)
+						Heal(arrayScript.numMatched);
 					arrayScript.numMatched = 0;
 					//chainColor = selectedColor;
 	}
 }
+
+function Heal(amount: int) {
+	Debug.Log("Enemy Before: " + enemyCurrent);
+	currentHP += amount;
+	if(currentHP > 100)
+		currentHP = 100;
+	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
+    healthBar.transform.position = new Vector3(newXPosition, barY);
+    photonView.RPC("updateEnemyBar", PhotonTargets.Others, amount, currentHP);
+}
+@PunRPC
+function updateEnemyBar (amount: int, updatedEnemyHP: int) {
+	Debug.Log("Enemy Before: " + updatedEnemyHP);
+	enemyCurrent = updatedEnemyHP;
+	if(enemyCurrent > 100)
+		enemyCurrent = 100;
+	var newXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
+    enemyHP.transform.position = new Vector3(newXPosition, enemyY);
+	Debug.Log("Enemy Current: " + enemyCurrent);
+}
+
+function ChangeColor(chainLength : int) {
+	var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
+	var matchedArray : GameObject[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).matchedArray;
+	
+	for(var j = 0; j < chainLength; j++){
+		matchedArray[j].transform.GetComponent(Renderer).material.color.a = 0;
+	}
+	for(var i = 0; i < chainLength; i++){
+		matchedArray[i].transform.GetComponent(Renderer).material.color.a = 1;
+		var rand : float = Random.Range(0, 5);
+	    if( rand < 1){
+	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.red;
+	    }
+	    else if( rand < 2){
+	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.blue;
+	    }
+	    else if( rand < 3){
+	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.green;
+	    }
+	    else if (rand < 4){
+	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.yellow;
+	    }
+	    else matchedArray[i].transform.GetComponent(Renderer).material.color = Color.magenta;
+	}
+} 
+
 function HandleHealth() {
 	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
 	//hpText.GetComponent.<TextMesh>().text = "HP: " + currentHP;
 	Debug.Log("newXPosition " + newXPosition);
 	healthBar.transform.position = new Vector3(newXPosition, barY);
 }
+
+
 function DoDamage(damage : int){
     //if(photonView.viewID < 1) photonView.viewID = PhotonNetwork.AllocateViewID();
     photonView.RPC("ChangeHP", PhotonTargets.Others, damage);
+    Debug.Log("Enemy Before: " + enemyCurrent);
+    enemyCurrent -= damage;
+    var enemyXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
+    enemyHP.transform.position = new Vector3(enemyXPosition, enemyY);
+    	Debug.Log("Enemy Current: " + enemyCurrent);
 }
 @PunRPC
 function ChangeHP(damage : int){
@@ -132,6 +194,7 @@ function ChangeHP(damage : int){
     currentHP -= damage;
     var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
     healthBar.transform.position = new Vector3(newXPosition, barY);
+    Debug.Log("Current HP: " + currentHP);
 }
 
 
