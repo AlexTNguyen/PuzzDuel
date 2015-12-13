@@ -10,6 +10,9 @@ TagManager:
   - Canvas
   - HP
   - enemyHP
+  - HandleHP
+  - Connect
+  - Start
   layers:
   - Default
   - TransparentFX

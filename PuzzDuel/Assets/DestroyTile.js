@@ -20,6 +20,7 @@ var enemyHP: GameObject;
 var enemyCurrent: int; 
 var canvas: GameObject;
 var hpText: GameObject;
+var HpScript : HandleHP;
 /*public class Networking extends Photon.PunBehaviour{
     @PunRPC
     function ChangeHP(newx : float){
@@ -40,17 +41,24 @@ function Start () {
 		enemyY = enemyHP.transform.position.y; 
 	Debug.Log(maxValue);
 	Debug.Log(minValue);
-	currentHP = maxHP; 
-	enemyCurrent = maxHP;
+	HpScript = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP);
+	//currentHP = maxHP; 
+	//enemyCurrent = maxHP;
+	//currentHP = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).currentHP;
+	//enemyCurrent = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).enemyCurrent;
 	photonView = PhotonView.Get(this);
 	//photonView.viewID = 1;
 }
 
 function Update () {
+	currentHP = HpScript.currentHP;
+	enemyCurrent = HpScript.enemyCurrent;
 	if (enemyCurrent <= 0)
 		Application.LoadLevel(3);
-	if (currentHP <= 0)
-		Application.LoadLevel(2); 
+	if (currentHP <= 0){
+		Debug.Log("Lost");
+		Application.LoadLevel(2);
+	} 
 	var matchedArray : GameObject[] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).matchedArray;
 	var arrayScript : CreateArray = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray);
 	var spawnScript : SpawnTiles = GameObject.FindWithTag("Spawner").GetComponent(SpawnTiles);
@@ -126,20 +134,29 @@ function Update () {
 }
 
 function Heal(amount: int) {
+	currentHP = HpScript.currentHP;
+	enemyCurrent = HpScript.enemyCurrent;
 	Debug.Log("Enemy Before: " + enemyCurrent);
+	Debug.Log("Current: " + currentHP);
 	currentHP += amount;
-	if(currentHP > 100)
-		currentHP = 100;
+	if(currentHP > maxHP){
+		currentHP = maxHP;
+	}
+	HpScript.UpdateCurrent(currentHP);
 	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
     healthBar.transform.position = new Vector3(newXPosition, barY);
     photonView.RPC("updateEnemyBar", PhotonTargets.Others, amount, currentHP);
 }
 @PunRPC
 function updateEnemyBar (amount: int, updatedEnemyHP: int) {
+	currentHP = HpScript.currentHP;
+	enemyCurrent = HpScript.enemyCurrent;
 	Debug.Log("Enemy Before: " + updatedEnemyHP);
 	enemyCurrent = updatedEnemyHP;
-	if(enemyCurrent > 100)
-		enemyCurrent = 100;
+	if(enemyCurrent > maxHP){
+		enemyCurrent = maxHP;
+	}
+	HpScript.UpdateEnemy(enemyCurrent);
 	var newXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
     enemyHP.transform.position = new Vector3(newXPosition, enemyY);
 	Debug.Log("Enemy Current: " + enemyCurrent);
@@ -172,6 +189,7 @@ function ChangeColor(chainLength : int) {
 } 
 
 function HandleHealth() {
+	currentHP = HpScript.currentHP;
 	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
 	//hpText.GetComponent.<TextMesh>().text = "HP: " + currentHP;
 	Debug.Log("newXPosition " + newXPosition);
@@ -180,18 +198,24 @@ function HandleHealth() {
 
 
 function DoDamage(damage : int){
+	currentHP = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).currentHP;
+	enemyCurrent = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).enemyCurrent;
     //if(photonView.viewID < 1) photonView.viewID = PhotonNetwork.AllocateViewID();
     photonView.RPC("ChangeHP", PhotonTargets.Others, damage);
     Debug.Log("Enemy Before: " + enemyCurrent);
     enemyCurrent -= damage;
+    HpScript.UpdateEnemy(enemyCurrent);
     var enemyXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
     enemyHP.transform.position = new Vector3(enemyXPosition, enemyY);
     	Debug.Log("Enemy Current: " + enemyCurrent);
 }
 @PunRPC
 function ChangeHP(damage : int){
+	currentHP = HpScript.currentHP;
+	enemyCurrent = HpScript.enemyCurrent;
     Debug.Log(currentHP);
     currentHP -= damage;
+    HpScript.UpdateCurrent(currentHP);
     var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
     healthBar.transform.position = new Vector3(newXPosition, barY);
     Debug.Log("Current HP: " + currentHP);
