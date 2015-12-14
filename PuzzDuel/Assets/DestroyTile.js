@@ -7,47 +7,30 @@ var chainCreated : boolean = false;
 var chainColor : Color; 
 var lastTileX: float = 0;
 var lastTileY: float = 0;
-var healthBar: GameObject;
-var maxValue: float; 
-var minValue: float;
+var healthBar: RectTransform;
 var currentHP: int;
 var maxHP: int = 100;
 var minHP: int = 0; 
 var barWidth: float; 
-var barY: float;
-var enemyY: float;
-var enemyHP: GameObject;
+var enemyHP: RectTransform;
 var enemyCurrent: int; 
 var canvas: GameObject;
 var hpText: GameObject;
 var HpScript : HandleHP;
-/*public class Networking extends Photon.PunBehaviour{
-    @PunRPC
-    function ChangeHP(newx : float){
-        healthBar.transform.position = new Vector3(newx, barY);
-    }
-}*/
+var HPx : float;
+
 var photonView : PhotonView;
 
 function Start () {
 	//hpText = GameObject.FindWithTag("Text");
 	canvas = GameObject.FindWithTag("Canvas");
-	healthBar = GameObject.FindWithTag("HP"); 
-	enemyHP = GameObject.FindWithTag("enemyHP");
-	barWidth = healthBar.GetComponent(RectTransform).rect.width * canvas.transform.localScale.x;
-		maxValue = healthBar.transform.position.x;
-		minValue = healthBar.transform.position.x - barWidth;
-		barY = healthBar.transform.position.y;
-		enemyY = enemyHP.transform.position.y; 
-	Debug.Log(maxValue);
-	Debug.Log(minValue);
+	healthBar = GameObject.FindWithTag("HP").GetComponent(RectTransform); 
+	enemyHP = GameObject.FindWithTag("enemyHP").GetComponent(RectTransform);
+	barWidth = healthBar.rect.width;
+	Debug.Log("Anchored Position: " + healthBar.anchoredPosition);
+	HPx = healthBar.anchoredPosition.x;	
 	HpScript = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP);
-	//currentHP = maxHP; 
-	//enemyCurrent = maxHP;
-	//currentHP = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).currentHP;
-	//enemyCurrent = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).enemyCurrent;
 	photonView = PhotonView.Get(this);
-	//photonView.viewID = 1;
 }
 
 function Update () {
@@ -143,8 +126,8 @@ function Heal(amount: int) {
 		currentHP = maxHP;
 	}
 	HpScript.UpdateCurrent(currentHP);
-	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
-    healthBar.transform.position = new Vector3(newXPosition, barY);
+	var newXPosition = ConvertToX(currentHP);
+    healthBar.anchoredPosition.x = newXPosition;
     photonView.RPC("updateEnemyBar", PhotonTargets.Others, amount, currentHP);
 }
 @PunRPC
@@ -157,8 +140,8 @@ function updateEnemyBar (amount: int, updatedEnemyHP: int) {
 		enemyCurrent = maxHP;
 	}
 	HpScript.UpdateEnemy(enemyCurrent);
-	var newXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
-    enemyHP.transform.position = new Vector3(newXPosition, enemyY);
+	var newXPosition = ConvertToX(enemyCurrent);
+    enemyHP.anchoredPosition.x = newXPosition;
 	Debug.Log("Enemy Current: " + enemyCurrent);
 }
 
@@ -190,23 +173,22 @@ function ChangeColor(chainLength : int) {
 
 function HandleHealth() {
 	currentHP = HpScript.currentHP;
-	var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
+	var newXPosition = ConvertToX(currentHP);
 	//hpText.GetComponent.<TextMesh>().text = "HP: " + currentHP;
 	Debug.Log("newXPosition " + newXPosition);
-	healthBar.transform.position = new Vector3(newXPosition, barY);
+	healthBar.anchoredPosition.x = newXPosition;
 }
 
 
 function DoDamage(damage : int){
 	currentHP = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).currentHP;
 	enemyCurrent = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP).enemyCurrent;
-    //if(photonView.viewID < 1) photonView.viewID = PhotonNetwork.AllocateViewID();
     photonView.RPC("ChangeHP", PhotonTargets.Others, damage);
     Debug.Log("Enemy Before: " + enemyCurrent);
     enemyCurrent -= damage;
     HpScript.UpdateEnemy(enemyCurrent);
-    var enemyXPosition = ConvertToX(enemyCurrent, 0, maxHP, minValue, maxValue);
-    enemyHP.transform.position = new Vector3(enemyXPosition, enemyY);
+    var enemyXPosition = ConvertToX(enemyCurrent);
+    enemyHP.anchoredPosition.x = enemyXPosition;
     	Debug.Log("Enemy Current: " + enemyCurrent);
 }
 @PunRPC
@@ -216,19 +198,19 @@ function ChangeHP(damage : int){
     Debug.Log(currentHP);
     currentHP -= damage;
     HpScript.UpdateCurrent(currentHP);
-    var newXPosition = ConvertToX(currentHP, 0, maxHP, minValue, maxValue);
-    healthBar.transform.position = new Vector3(newXPosition, barY);
+    var newXPosition = ConvertToX(currentHP);
+    healthBar.anchoredPosition.x = newXPosition;
     Debug.Log("Current HP: " + currentHP);
+    FlashOnDamage();
 }
 
 
-function ConvertToX(x: float, inMin: float, inMax: float, outMin: float, outMax: float) {
-	return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin; 
+function ConvertToX(health : float) {
+	 return (HPx - (( (maxHP - health)/maxHP) * barWidth));
 }
 
 function SpawnNew(){
-//    Debug.Log(x);
-//    Debug.Log(y);
+
     var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
     var newTile : GameObject = Instantiate(TilePrefab, Vector3(x, y, 0), Quaternion.Euler(0, 0, 0));
     TileArray[(x + 2)/0.25, ((y + 1.15)/0.25) - 1] = newTile;
@@ -281,4 +263,24 @@ function attached(row : int, col: int){
 
     }
     return false;
+}
+
+function FlashOnDamage(){
+	var i : float;
+	var damageTexture : UI.Image;
+	Debug.Log("flashing");
+	damageTexture = GameObject.FindWithTag("Damage").GetComponent(UI.Image);
+	for(i = 0.0; i < 0.3; i += Time.deltaTime)
+	{
+		damageTexture.color.a = Mathf.Lerp(0.0, 0.5, i);
+		yield;
+		damageTexture.color.a = 0.5;
+	}
+	yield WaitForSeconds(0.01);
+	for(i = 0.0; i < 0.3; i += Time.deltaTime)
+	{
+		damageTexture.color.a = Mathf.Lerp(0.5, 0.0, i);
+		yield;
+		damageTexture.color.a = 0.0;
+	}
 }

@@ -13,6 +13,7 @@ TagManager:
   - HandleHP
   - Connect
   - Start
+  - Damage
   layers:
   - Default
   - TransparentFX
