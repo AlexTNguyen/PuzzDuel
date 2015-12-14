@@ -4,6 +4,7 @@ var ConnectScript : Connect;
 
 function Start () {
 	ConnectScript = GameObject.FindWithTag("Connect").GetComponent(Connect);
+	Screen.SetResolution (750, 1334, false);
 }
 
 function Update () {

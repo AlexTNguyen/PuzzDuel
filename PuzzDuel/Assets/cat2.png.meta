@@ -1,0 +1,606 @@
+fileFormatVersion: 2
+guid: 76ecf3587bd1ecd4e8e264912d09c3d1
+timeCreated: 1450074385
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: cat2_0
+    21300002: cat2_1
+    21300004: cat2_2
+    21300006: cat2_3
+    21300008: cat2_4
+    21300010: cat2_5
+    21300012: cat2_6
+    21300014: cat2_7
+    21300016: cat2_8
+    21300018: cat2_9
+    21300020: cat2_10
+    21300022: cat2_11
+    21300024: cat2_12
+    21300026: cat2_13
+    21300028: cat2_14
+    21300030: cat2_15
+    21300032: cat2_16
+    21300034: cat2_17
+    21300036: cat2_18
+    21300038: cat2_19
+    21300040: cat2_20
+    21300042: cat2_21
+    21300044: cat2_22
+    21300046: cat2_23
+    21300048: cat2_24
+    21300050: cat2_25
+    21300052: cat2_26
+    21300054: cat2_27
+    21300056: cat2_28
+    21300058: cat2_29
+    21300060: cat2_30
+    21300062: cat2_31
+    21300064: cat2_32
+    21300066: cat2_33
+    21300068: cat2_34
+    21300070: cat2_35
+    21300072: cat2_36
+    21300074: cat2_37
+    21300076: cat2_38
+    21300078: cat2_39
+    21300080: cat2_40
+    21300082: cat2_41
+    21300084: cat2_42
+    21300086: cat2_43
+    21300088: cat2_44
+    21300090: cat2_45
+    21300092: cat2_46
+    21300094: cat2_47
+    21300096: cat2_48
+    21300098: cat2_49
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: cat2_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 845
+        width: 38
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 845
+        width: 38
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 845
+        width: 38
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_3
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 797
+        width: 38
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_4
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 797
+        width: 36
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_5
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 797
+        width: 35
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_6
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 797
+        width: 41
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_7
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 797
+        width: 44
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_8
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 797
+        width: 48
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_9
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 797
+        width: 45
+        height: 39
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_10
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 749
+        width: 49
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_11
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 692
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_12
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 645
+        width: 46
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_13
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 645
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_14
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 645
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_15
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 605
+        width: 54
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_16
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 557
+        width: 49
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_17
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 509
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_18
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 509
+        width: 39
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_19
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 509
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_20
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 462
+        width: 38
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_21
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 413
+        width: 49
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_22
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 413
+        width: 49
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_23
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 413
+        width: 49
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_24
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 344
+        width: 29
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_25
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 293
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_26
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 293
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_27
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 237
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_28
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 237
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_29
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 192
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_30
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 183
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_31
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 183
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_32
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 186
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_33
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 183
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_34
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 186
+        width: 33
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_35
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 174
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_36
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 145
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_37
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 167
+        width: 33
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_38
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 167
+        width: 47
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_39
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 167
+        width: 4
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_40
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 167
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_41
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 167
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_42
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 167
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_43
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 146
+        width: 38
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_44
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 95
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_45
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 50
+        width: 41
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_46
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 5
+        width: 32
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_47
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 8
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_48
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 7
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cat2_49
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 8
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

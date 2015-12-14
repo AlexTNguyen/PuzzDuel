@@ -1,10 +1,14 @@
 ﻿#pragma strict
 
 var TilePrefab : GameObject;
+var GrayCat : Sprite;
+var OrangeCat : Sprite;
+var WhiteCat : Sprite;
+var BrownCat : Sprite;
 var x : float = -1;
 var y : float = -1;
 var chainCreated : boolean = false; 
-var chainColor : Color; 
+var chainColor : Sprite; 
 var lastTileX: float = 0;
 var lastTileY: float = 0;
 var healthBar: RectTransform;
@@ -22,6 +26,8 @@ var HPx : float;
 var photonView : PhotonView;
 
 function Start () {
+    Screen.SetResolution (750, 1334, false);
+
 	//hpText = GameObject.FindWithTag("Text");
 	canvas = GameObject.FindWithTag("Canvas");
 	healthBar = GameObject.FindWithTag("HP").GetComponent(RectTransform); 
@@ -31,6 +37,10 @@ function Start () {
 	HPx = healthBar.anchoredPosition.x;	
 	HpScript = GameObject.FindWithTag("HandleHP").GetComponent(HandleHP);
 	photonView = PhotonView.Get(this);
+	GrayCat = Resources.Load("gray cat", Sprite);
+	OrangeCat = Resources.Load("orange cat", Sprite);
+	WhiteCat = Resources.Load("white cat", Sprite);
+	BrownCat = Resources.Load("brown cat", Sprite);
 }
 
 function Update () {
@@ -52,7 +62,7 @@ function Update () {
 	{
 	     if(hit.transform.GetComponent(Renderer).material.color.a > 0.5) {
 			 if(arrayScript.numMatched == 0) {
-			 	chainColor = hit.transform.GetComponent(Renderer).material.color;
+			 	chainColor = hit.transform.GetComponent(SpriteRenderer).sprite;
 			 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
 			 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
 			 	//hit.transform.localScale += new Vector3(0.2F, 0.2F, 0);
@@ -70,9 +80,9 @@ function Update () {
 			 	   //Below
 			 	   (hit.transform.position.x == lastTileX && hit.transform.position.y == lastTileY - 0.25)) { 
 				 	Debug.Log(chainColor);
-				 	var selectedColor = hit.transform.GetComponent(Renderer).material.color;
+				 	var selectedColor = hit.transform.GetComponent(SpriteRenderer).sprite;
 				 	Debug.Log(selectedColor);
-				 	if(selectedColor.r == chainColor.r && selectedColor.g == chainColor.g && selectedColor.b == chainColor.b){
+				 	if(selectedColor == chainColor){
 				 		//matchedArray[arrayScript.numMatched-1].transform.localScale += new Vector3(-0.2F, -0.2F, 0);
 				 	 	matchedArray[arrayScript.numMatched] = hit.transform.gameObject; 
 				 	 	hit.transform.GetComponent(Renderer).material.color.a = 0.5;
@@ -154,20 +164,18 @@ function ChangeColor(chainLength : int) {
 	}
 	for(var i = 0; i < chainLength; i++){
 		matchedArray[i].transform.GetComponent(Renderer).material.color.a = 1;
-		var rand : float = Random.Range(0, 5);
+		
+		var rand : float = Random.Range(0, 4);
 	    if( rand < 1){
-	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.red;
+	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = GrayCat; 
 	    }
 	    else if( rand < 2){
-	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.blue;
+	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = WhiteCat; 
 	    }
 	    else if( rand < 3){
-	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.green;
+	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = OrangeCat; 
 	    }
-	    else if (rand < 4){
-	        matchedArray[i].transform.GetComponent(Renderer).material.color = Color.yellow;
-	    }
-	    else matchedArray[i].transform.GetComponent(Renderer).material.color = Color.magenta;
+		else matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = BrownCat;
 	}
 } 
 
@@ -201,68 +209,13 @@ function ChangeHP(damage : int){
     var newXPosition = ConvertToX(currentHP);
     healthBar.anchoredPosition.x = newXPosition;
     Debug.Log("Current HP: " + currentHP);
-    FlashOnDamage();
+    if(damage >= 5)
+    	FlashOnDamage();
 }
 
 
 function ConvertToX(health : float) {
 	 return (HPx - (( (maxHP - health)/maxHP) * barWidth));
-}
-
-function SpawnNew(){
-
-    var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
-    var newTile : GameObject = Instantiate(TilePrefab, Vector3(x, y, 0), Quaternion.Euler(0, 0, 0));
-    TileArray[(x + 2)/0.25, ((y + 1.15)/0.25) - 1] = newTile;
-    var rand : float = Random.Range(0, 5);
-    Debug.Log(rand);
-    if( rand == 0){
-        newTile.GetComponent(Renderer).material.color = Color.red;
-    }
-    else if( rand == 1){
-        newTile.GetComponent(Renderer).material.color = Color.blue;
-    }
-    else if( rand == 2){
-        newTile.GetComponent(Renderer).material.color = Color.green;
-    }
-    else if (rand == 3){
-        newTile.GetComponent(Renderer).material.color = Color.yellow;
-    }
-    else newTile.GetComponent(Renderer).material.color = Color.magenta;
-    newTile.active = true;
-}
-
-function attached(row : int, col: int){
-    var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
-    var tileColor = gameObject.GetComponent(Renderer).material.color;
-    if(col > 0){
-        var colorleft = TileArray[row, col-1].GetComponent(Renderer).material.color;
-        if(colorleft.r == tileColor.r && colorleft.g == tileColor.g && colorleft.b == tileColor.b && colorleft.a != 1){
-            return true;
-        }
-    }
-    if(col < 7){
-        var colorright = TileArray[row, col + 1].GetComponent(Renderer).material.color;
-        if(colorright.r == tileColor.r && colorright.g == tileColor.g && colorright.b == tileColor.b && colorright.a != 1){
-            return true;
-        }
-
-    }
-    if(row > 0){
-        var colordown = TileArray[row - 1, col].GetComponent(Renderer).material.color;
-        if(colordown.r == tileColor.r && colordown.g == tileColor.g && colordown.b == tileColor.b && colordown.a != 1){
-            return true;
-        }
-
-    }
-    if(row < 7){
-        var colorup = TileArray[row + 1, col].GetComponent(Renderer).material.color;
-        if(colorup.r == tileColor.r && colorup.g == tileColor.g && colorup.b == tileColor.b && colorup.a != 1){
-            return true;
-        }
-
-    }
-    return false;
 }
 
 function FlashOnDamage(){

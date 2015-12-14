@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 function Start () {
-
+Screen.SetResolution (750, 1334, false);
 }
 
 function Update () {

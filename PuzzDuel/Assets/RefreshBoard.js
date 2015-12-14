@@ -2,9 +2,16 @@
 
 var startFreeze : float;
 var freeze: boolean = false; 
+var GrayCat : Sprite;
+var OrangeCat : Sprite;
+var WhiteCat : Sprite;
+var BrownCat : Sprite;
 
 function Start () {
-
+	GrayCat = Resources.Load("gray cat", Sprite);
+	OrangeCat = Resources.Load("orange cat", Sprite);
+	WhiteCat = Resources.Load("white cat", Sprite);
+	BrownCat = Resources.Load("brown cat", Sprite);
 }
 
 function Update () {
@@ -29,20 +36,17 @@ function OnMouseOver() {
 	Debug.Log("Refresh!");
 	for(var i = 0; i < maxHeight; i++) {
 		for(var j = 0; j < maxHeight; j++){
-			var rand : float = Random.Range(0, 5);
+			var rand : float = Random.Range(0, 4);
 		    if( rand < 1){
-		        TileArray[i,j].GetComponent(Renderer).material.color = Color.red;
+		        TileArray[i,j].GetComponent(SpriteRenderer).sprite = GrayCat;
 		    }
 		    else if( rand < 2){
-		        TileArray[i,j].GetComponent(Renderer).material.color = Color.blue;
+		        TileArray[i,j].GetComponent(SpriteRenderer).sprite = BrownCat;
 		    }
 		    else if( rand < 3){
-		        TileArray[i,j].GetComponent(Renderer).material.color = Color.green;
+		        TileArray[i,j].GetComponent(SpriteRenderer).sprite = OrangeCat;
 		    }
-		    else if (rand < 4){
-		        TileArray[i,j].GetComponent(Renderer).material.color = Color.yellow;
-		    }
-		    else TileArray[i,j].GetComponent(Renderer).material.color = Color.magenta;
+		    else TileArray[i,j].GetComponent(SpriteRenderer).sprite = WhiteCat;
 		    TileArray[i,j].GetComponent(Renderer).material.color.a = 0.5;
 		}
 	}

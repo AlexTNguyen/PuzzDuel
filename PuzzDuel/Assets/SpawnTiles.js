@@ -1,13 +1,20 @@
 ﻿#pragma strict
 
 var TilePrefab : GameObject;
+var GrayCat : Sprite;
+var OrangeCat : Sprite;
+var WhiteCat : Sprite;
+var BrownCat : Sprite;
 var spawnTime: float = 0.25;
 var colHeight : int = 1;
 var MaxHeight : int = 8;
 var spawnTimer : float = spawnTime;
 
 function Start () {
-
+	GrayCat = Resources.Load("gray cat", Sprite);
+	OrangeCat = Resources.Load("orange cat", Sprite);
+	WhiteCat = Resources.Load("white cat", Sprite);
+	BrownCat = Resources.Load("brown cat", Sprite);
 }
 
 function Update () {
@@ -64,19 +71,23 @@ function spawnTiles(colHeight : int, col : int){
     var TileArray : GameObject[,] = GameObject.FindWithTag("BoardArray").GetComponent(CreateArray).board;
     TileArray[colHeight, col] = Instantiate(TilePrefab, Vector3(-2 + (col * (0.25)), (-0.9 + (colHeight * (0.25))), 0) , transform.rotation);
     var newTile : GameObject = TileArray[colHeight, col];
-    var rand : float = Random.Range(0, 5);
-
+    var rand : float = Random.Range(0, 4);
+	//Debug.Log(newTile.GetComponent(SpriteRenderer).sprite);
     if( rand < 1){
-        newTile.GetComponent(Renderer).material.color = Color.red;
+        //newTile.GetComponent(Renderer).material.color = Color.red;
+        Debug.Log(GrayCat);
+        newTile.GetComponent(SpriteRenderer).sprite = GrayCat; 
     }
     else if( rand < 2){
-        newTile.GetComponent(Renderer).material.color = Color.blue;
+        //newTile.GetComponent(Renderer).material.color = Color.blue;
+        newTile.GetComponent(SpriteRenderer).sprite = WhiteCat; 
     }
     else if( rand < 3){
-        newTile.GetComponent(Renderer).material.color = Color.green;
+        //newTile.GetComponent(Renderer).material.color = Color.green;
+        newTile.GetComponent(SpriteRenderer).sprite = OrangeCat; 
     }
-    else if (rand < 4){
-        newTile.GetComponent(Renderer).material.color = Color.yellow;
-    }
-    else newTile.GetComponent(Renderer).material.color = Color.magenta;
+    //else if (rand < 4){
+        //newTile.GetComponent(Renderer).material.color = Color.yellow;
+    //}
+  //  else newTile.GetComponent(SpriteRenderer).sprite = orangeCat; 
 }

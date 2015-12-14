@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 8f15fcf66d0cf1c4c8716eca50e5d418
-timeCreated: 1449089053
+timeCreated: 1450065981
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - TilePrefab: {fileID: 153390, guid: 289141194e225f74e80ce0491057cb04, type: 2}
+  - GrayCat: {fileID: 21300000, guid: 47fdc70170866c84196f262093c58942, type: 3}
+  - OrangeCat: {fileID: 21300000, guid: d461d04b7f5f3b742a8c7c9106516ea4, type: 3}
+  - WhiteCat: {fileID: 21300000, guid: 61d9b39396d8be747b4997a36e21e8c3, type: 3}
+  - BrownCat: {fileID: 21300000, guid: 1b21db9304b433c478c4e214f6530abd, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
