@@ -1,0 +1,88 @@
+header {
+	font-size: 30px;
+	font-family: "Comic Sans MS";
+	color: orange;
+	text-align: center;
+}
+
+body {
+	background-color: white;
+	font-family: Arial;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 11px;
+}
+ 
+p {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-right: 10px;
+	padding-left: 10px;
+	margin-top: 0px;
+	margin-right: 0px;
+}
+
+div {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	color: black;
+	border: 1px solid;
+	border-color: orange;
+}
+
+#index {
+	text-align: center;
+}
+
+/*ul {
+	margin: 0px 0px 0px 0px;
+}*/
+
+h1 {
+	font-family: "Comic Sans MS";
+	font-size: 16px;
+	font-weight: normal;
+	padding-left: 5px;
+	color: orange;
+}
+
+h2 {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+h3 {
+	text-align: center;
+}
+
+.screenshot { 
+	width: 375px;
+	height: 667px;
+}
+
+#cat { 
+	width: 100px;
+	height: 100px;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: orange;
+}
+
+a:active {
+    text-decoration: none;
+    color: black;
+}
