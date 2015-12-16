@@ -103,21 +103,10 @@ function Update () {
 					}
 			 		else if(arrayScript.numMatched >= 3) 
 			 		{
-			 			//currentHP -= arrayScript.numMatched; 
-			 			//if (arrayScript.numMatched >= 5)
-			 			//	currentHP += 2*arrayScript.numMatched;
-			 		    //HandleHealth();
+
 			 		    DoDamage(arrayScript.numMatched);
 			 			
 			 			ChangeColor(arrayScript.numMatched); 
-					 	//for(var i = 0; i < arrayScript.numMatched; i++){
-				    	//	var toSpawnx : float = matchedArray[i].transform.position.x;
-				    	//	var toSpawny : float = matchedArray[i].transform.position.y; 
-					    //		Destroy(matchedArray[i]);
-					    //		Debug.Log("SPAWNING" + i);
-					    //		Debug.Log("After" + i + ": x = " + ((toSpawny + 0.9)/0.25) + " y = " + ((toSpawnx + 2)/0.25));
-					    //	}
-						//}
 					}
 					if(arrayScript.numMatched >= 5)
 						Heal(arrayScript.numMatched);
@@ -162,21 +151,51 @@ function ChangeColor(chainLength : int) {
 	for(var j = 0; j < chainLength; j++){
 		matchedArray[j].transform.GetComponent(Renderer).material.color.a = 0;
 	}
-	for(var i = 0; i < chainLength; i++){
-		matchedArray[i].transform.GetComponent(Renderer).material.color.a = 1;
-		
-		var rand : float = Random.Range(0, 4);
-	    if( rand < 1){
-	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = GrayCat; 
-	    }
-	    else if( rand < 2){
-	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = WhiteCat; 
-	    }
-	    else if( rand < 3){
-	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = OrangeCat; 
-	    }
-		else matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = BrownCat;
+	for(var row = 0; row < 8; row++) {
+		for(var col = 0; col < 8; col++) {
+			if(TileArray[col, row].transform.GetComponent(Renderer).material.color.a == 0) {
+				var tempCol = col+1; 
+				while(tempCol < 8) { 
+					if(TileArray[tempCol, row].transform.GetComponent(Renderer).material.color.a == 1){
+						TileArray[tempCol, row].transform.GetComponent(Renderer).material.color.a = 0;
+						TileArray[col, row].transform.GetComponent(SpriteRenderer).sprite = TileArray[tempCol, row].transform.GetComponent(SpriteRenderer).sprite;
+						TileArray[col, row].transform.GetComponent(Renderer).material.color.a = 1;
+						tempCol = 9;
+					}
+					else tempCol++; 
+				}
+				if(tempCol == 8) {
+					var rand : float = Random.Range(0, 4);
+	   				if( rand < 1){
+	       				TileArray[col, row].transform.GetComponent(SpriteRenderer).sprite = GrayCat; 
+	    			}
+	    			else if( rand < 2){
+	        			TileArray[col, row].transform.GetComponent(SpriteRenderer).sprite = WhiteCat; 
+	    			}
+	    			else if( rand < 3){
+	        			TileArray[col, row].transform.GetComponent(SpriteRenderer).sprite = OrangeCat; 
+	    			}
+					else TileArray[col, row].transform.GetComponent(SpriteRenderer).sprite = BrownCat;
+					TileArray[col, row].transform.GetComponent(Renderer).material.color.a = 1;
+				}
+			}
+		}
 	}
+//	for(var i = 0; i < chainLength; i++){
+//		matchedArray[i].transform.GetComponent(Renderer).material.color.a = 1;
+//		
+//		var rand : float = Random.Range(0, 4);
+//	    if( rand < 1){
+//	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = GrayCat; 
+//	    }
+//	    else if( rand < 2){
+//	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = WhiteCat; 
+//	    }
+//	    else if( rand < 3){
+//	        matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = OrangeCat; 
+//	    }
+//		else matchedArray[i].transform.GetComponent(SpriteRenderer).sprite = BrownCat;
+//	}
 } 
 
 function HandleHealth() {
