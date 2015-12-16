@@ -22,6 +22,11 @@ var canvas: GameObject;
 var hpText: GameObject;
 var HpScript : HandleHP;
 var HPx : float;
+var cat1poop: Sprite;
+var cat2poop: Sprite;
+var cat1mad: Sprite;
+var cat2mad: Sprite;
+var idleAnimation: AnimationClip;
 
 var photonView : PhotonView;
 
@@ -41,6 +46,10 @@ function Start () {
 	OrangeCat = Resources.Load("orange cat", Sprite);
 	WhiteCat = Resources.Load("white cat", Sprite);
 	BrownCat = Resources.Load("brown cat", Sprite);
+	cat1poop = Resources.Load("cat1_4", Sprite);
+	cat2poop = Resources.Load("cat2_27", Sprite);
+	cat1mad = Resources.Load("cat1_1", Sprite);
+	cat2mad = Resources.Load("cat2_44", Sprite);
 }
 
 function Update () {
@@ -228,9 +237,12 @@ function ChangeHP(damage : int){
     var newXPosition = ConvertToX(currentHP);
     healthBar.anchoredPosition.x = newXPosition;
     Debug.Log("Current HP: " + currentHP);
-    if(damage >= 5)
+    if(damage >= 5) {
     	FlashOnDamage();
+    	//cat2attack(); 
+    }
 }
+
 
 
 function ConvertToX(health : float) {

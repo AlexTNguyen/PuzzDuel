@@ -285,8 +285,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 2.28876961e-05, y: 2.28881836e-05}
-  m_SizeDelta: {x: 293, y: 521}
+  m_AnchoredPosition: {x: -.00336170197, y: -.000946044922}
+  m_SizeDelta: {x: 800.140015, y: 1422.80005}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &97527889
 MonoBehaviour:
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -696,7 +696,7 @@ GameObject:
   - 95: {fileID: 639263102}
   m_Layer: 0
   m_Name: cat2_0
-  m_TagString: Untagged
+  m_TagString: cat2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1427,7 +1427,7 @@ GameObject:
   - 95: {fileID: 1410278304}
   m_Layer: 0
   m_Name: cat1_25
-  m_TagString: Untagged
+  m_TagString: cat1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1860,8 +1860,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2065658953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.89900005, y: 2.27900004, z: 0}
-  m_LocalScale: {x: .0557875074, y: .0557875074, z: .0557875074}
+  m_LocalPosition: {x: -1.91600001, y: 1.98800004, z: 0}
+  m_LocalScale: {x: .0905801654, y: .0905801654, z: .0905801654}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13

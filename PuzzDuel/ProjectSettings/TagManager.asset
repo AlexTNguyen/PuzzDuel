@@ -18,6 +18,8 @@ TagManager:
   - orange
   - white
   - brown
+  - cat1
+  - cat2
   layers:
   - Default
   - TransparentFX
