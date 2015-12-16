@@ -2,7 +2,7 @@
 
 function Start () {
 	var camera : Camera = GameObject.FindWithTag("MainCamera").GetComponent(Camera);
-	camera.aspect = 750.0/1334.0;
+	camera.aspect = 640.0/1136.0;
 }
 
 function Update () {
